@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import "./sign-up.scss";
+import "./sign-ip.scss";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
-  const navigate = useNavigate();
-
+const SignIn = () => {
   const URI = process.env.REACT_APP_API_URI;
 
   const [email, setEmail] = useState("");
@@ -30,7 +27,6 @@ const SignUp = () => {
       try {
         const response = await axios.post(`${URI}/auth/signup`, { email, password });
         console.log(response);
-        navigate("/signin");
       } catch (error) {
         console.error(error);
       }
@@ -58,4 +54,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
