@@ -17,10 +17,18 @@ const Navigation = () => {
   return (
     <div>
       <ul>
-        <li onClick={() => navigate("/")}>메인</li>
-        <SignUpButton accessTokenData={accessTokenData} />
-        <LoginButton accessTokenData={accessTokenData} />
-        <NavigateTodoButton accessTokenData={accessTokenData} />
+        <li onClick={() => navigate("/")}>
+          <div>메인</div>
+        </li>
+        <li>
+          <SignUpButton accessTokenData={accessTokenData} navigate={navigate} />
+        </li>
+        <li>
+          <LoginButton accessTokenData={accessTokenData} navigate={navigate} />
+        </li>
+        <li>
+          <NavigateTodoButton accessTokenData={accessTokenData} navigate={navigate} />
+        </li>
       </ul>
     </div>
   );

@@ -10,10 +10,10 @@ const Todo = () => {
     const isValidAccessToken = validateAccessToken();
     setIsLoggedIn(isValidAccessToken);
     if (!isValidAccessToken) {
-      window.alert("로그인을 해주세요.");
       navigate("/signin");
     }
-  }, []);
+  }, [navigate]);
+
   return <>{isLoggedIn && <div>투두페이지</div>}</>;
 };
 

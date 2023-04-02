@@ -39,6 +39,7 @@ const SignUp = () => {
 
   return (
     <div className="sign-up">
+      <h2>회원가입</h2>
       <form className="form" onSubmit={handleSubmit}>
         <label className="label">
           이메일

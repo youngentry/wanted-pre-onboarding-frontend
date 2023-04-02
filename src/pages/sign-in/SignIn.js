@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./sign-ip.scss";
+import "./sign-in.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { setAccessToken, validateAccessToken } from "../../module/handleAccessToken";
@@ -49,6 +49,7 @@ const SignIn = () => {
 
   return (
     <div className="sign-up">
+      <h2>로그인</h2>
       <form className="form" onSubmit={handleSubmit}>
         <label className="label">
           이메일

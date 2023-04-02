@@ -1,10 +1,6 @@
-import React from "react";
 import { removeAccessTokenData } from "../../../module/handleAccessToken";
-import { useNavigate } from "react-router-dom";
 
-const LoginButton = ({ accessTokenData }) => {
-  const navigate = useNavigate();
-
+const LoginButton = ({ accessTokenData, navigate }) => {
   const handleClickSignIn = () => {
     navigate("/signin");
   };
@@ -15,7 +11,7 @@ const LoginButton = ({ accessTokenData }) => {
     navigate("/");
   };
 
-  return <>{accessTokenData ? <li onClick={handleClickLogout}>로그아웃</li> : <li onClick={handleClickSignIn}>로그인</li>}</>;
+  return <>{accessTokenData ? <div onClick={handleClickLogout}>로그아웃</div> : <div onClick={handleClickSignIn}>로그인</div>}</>;
 };
 
 export default LoginButton;

@@ -1,7 +1,7 @@
 .sign-up {
   display: flex;
+  flex-direction: column;
   width: 500px;
-  padding: 100px;
 
   .form {
     display: flex;
