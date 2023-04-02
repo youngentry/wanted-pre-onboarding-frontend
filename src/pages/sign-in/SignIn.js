@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./sign-ip.scss";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { setAccessToken, validateAccessToken } from "../../module/handleAccessToken";
 
 const SignIn = () => {
+  const navigate = useNavigate();
+
   const URI = process.env.REACT_APP_API_URI;
 
   const [email, setEmail] = useState("");
@@ -23,15 +27,25 @@ const SignIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (isValidEmail && isValidPassword) {
-      // 이메일과 비밀번호가 모두 유효할 때에만 서버로 요청을 보냅니다.
+      const headers = { "Content-Type": "application/json" };
+      const data = { email, password };
       try {
-        const response = await axios.post(`${URI}/auth/signup`, { email, password });
-        console.log(response);
+        const response = await axios.post(`${URI}/auth/signin`, data, { headers });
+        const accessToken = response.data.access_token;
+        setAccessToken(accessToken);
+        navigate("/todo");
       } catch (error) {
         console.error(error);
       }
     }
   };
+
+  useEffect(() => {
+    const isValidAccessToken = validateAccessToken();
+    if (isValidAccessToken) {
+      navigate("/todo");
+    }
+  }, [navigate]);
 
   return (
     <div className="sign-up">
@@ -47,7 +61,7 @@ const SignIn = () => {
         </label>
         {!isValidPassword && <p>비밀번호는 8자리 이상이어야 합니다.</p>}
         <button className="submit-btn" data-testid="signup-button" type="submit" disabled={!isValidEmail || !isValidPassword}>
-          회원가입
+          로그인
         </button>
       </form>
     </div>
