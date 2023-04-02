@@ -27,10 +27,12 @@ const SignUp = () => {
     event.preventDefault();
     if (isValidEmail && isValidPassword) {
       try {
-        const response = await axios.post(`${URI}/auth/signup`, { email, password });
+        await axios.post(`${URI}/auth/signup`, { email, password });
+        window.alert(`${email} 회원가입이 완료되었습니다.`);
         navigate("/signin");
       } catch (error) {
         console.error(error);
+        window.alert("이미 존재하는 아이디입니다.");
       }
     }
   };

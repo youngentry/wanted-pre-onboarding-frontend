@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import SignUp from "./pages/sign-up/SignUp";
 import SignIn from "./pages/sign-in/SignIn";
-import Navigation from "./components/Navigation";
+import Navigation from "./components/navigation/Navigation";
 import Todo from "./pages/todo/Todo";
 
 function App() {

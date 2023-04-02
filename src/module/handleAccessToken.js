@@ -30,7 +30,9 @@ export const validateAccessToken = () => {
   return false;
 };
 
-const removeAccessTokenData = () => {
+/**
+ * localStorage에 저장된 access_token 삭제
+ */
+export const removeAccessTokenData = () => {
   localStorage.removeItem("access_token");
-  return false;
 };
