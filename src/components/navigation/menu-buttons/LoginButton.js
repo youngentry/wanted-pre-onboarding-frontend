@@ -1,12 +1,13 @@
 import { removeAccessTokenData } from "../../../module/handleAccessToken";
 
-const LoginButton = ({ accessTokenData, navigate }) => {
+const LoginButton = ({ accessTokenData, navigate, setAccessTokenData }) => {
   const handleClickSignIn = () => {
     navigate("/signin");
   };
 
   const handleClickLogout = () => {
     removeAccessTokenData();
+    setAccessTokenData(null);
     window.alert("로그아웃 되었습니다.");
     navigate("/");
   };

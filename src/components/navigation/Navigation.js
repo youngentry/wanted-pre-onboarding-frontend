@@ -24,7 +24,7 @@ const Navigation = () => {
           <SignUpButton accessTokenData={accessTokenData} navigate={navigate} />
         </li>
         <li>
-          <LoginButton accessTokenData={accessTokenData} navigate={navigate} />
+          <LoginButton accessTokenData={accessTokenData} navigate={navigate} setAccessTokenData={setAccessTokenData} />
         </li>
         <li>
           <NavigateTodoButton accessTokenData={accessTokenData} navigate={navigate} />

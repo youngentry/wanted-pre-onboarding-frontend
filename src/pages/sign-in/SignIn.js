@@ -3,11 +3,10 @@ import "./sign-in.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { setAccessToken, validateAccessToken } from "../../module/handleAccessToken";
+import { API_BASE_URL } from "../../constants";
 
 const SignIn = () => {
   const navigate = useNavigate();
-
-  const URI = process.env.REACT_APP_API_URI;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +29,7 @@ const SignIn = () => {
       const headers = { "Content-Type": "application/json" };
       const data = { email, password };
       try {
-        const response = await axios.post(`${URI}/auth/signin`, data, { headers });
+        const response = await axios.post(`${API_BASE_URL}/auth/signin`, data, { headers });
         const accessToken = response.data.access_token;
         setAccessToken(accessToken);
         navigate("/todo");

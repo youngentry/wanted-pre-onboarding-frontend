@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import "./sign-up.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../constants";
 
 const SignUp = () => {
   const navigate = useNavigate();
-
-  const URI = process.env.REACT_APP_API_URI;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,14 +24,17 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const headers = { "Content-Type": "application/json" };
+    const data = { email, password };
+
     if (isValidEmail && isValidPassword) {
       try {
-        await axios.post(`${URI}/auth/signup`, { email, password });
+        await axios.post(`${API_BASE_URL}/auth/signup`, data, { headers });
         window.alert(`${email} 회원가입이 완료되었습니다.`);
         navigate("/signin");
       } catch (error) {
         console.error(error);
-        window.alert("이미 존재하는 아이디입니다.");
+        window.alert("회원가입에 실패했습니다.");
       }
     }
   };

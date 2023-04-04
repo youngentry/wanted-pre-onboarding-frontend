@@ -14,7 +14,7 @@ const Todo = () => {
     }
   }, [navigate]);
 
-  return <>{isLoggedIn && <div>투두페이지</div>}</>;
+  return <div>{isLoggedIn && <h2>투두페이지</h2>}</div>;
 };
 
 export default Todo;
