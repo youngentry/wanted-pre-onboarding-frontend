@@ -45,9 +45,26 @@ const Todo = () => {
     setEditTodoInput(event.target.value);
   };
 
-  const cancleEditTodo = () => {
+  const cancelEditTodo = () => {
     setEditTodoId("");
     setEditTodoId(null);
+  };
+
+  const deleteTodo = async (event, data) => {
+    event.preventDefault();
+    const { accessToken } = getAccessTokenData();
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    };
+    try {
+      const response = await axios.delete(`${API_BASE_URL}/todos/${data.id}`, { headers });
+      console.log(response);
+      const deletedTodoList = todoList.filter((item) => item.id !== data.id);
+      setTodoList([...deletedTodoList]);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -92,9 +109,9 @@ const Todo = () => {
                   </label>
                   {editTodoId && editTodoId === data.id ? (
                     <div>
-                      <input data-testid="modify-input" type="text" value={editTodoInput} onChange={handleEditTodoInputChange} />
+                      <input data-testid="modify-input" type="text" value={editTodoInput} onChange={handleEditTodoInputChange} required />
                       <button data-testid="submit-button">제출</button>
-                      <button data-testid="cancel-button" onClick={cancleEditTodo}>
+                      <button data-testid="cancel-button" onClick={cancelEditTodo}>
                         취소
                       </button>
                     </div>
@@ -104,7 +121,9 @@ const Todo = () => {
                       <button data-testid="modify-button" onClick={(event) => editTodo(event, data)}>
                         수정
                       </button>
-                      <button data-testid="delete-button">삭제</button>
+                      <button data-testid="delete-button" onClick={(event) => deleteTodo(event, data)}>
+                        삭제
+                      </button>
                     </div>
                   )}
                 </li>
