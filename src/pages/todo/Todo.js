@@ -19,13 +19,12 @@ const Todo = () => {
   const submitTodo = async (event) => {
     event.preventDefault();
     const { accessToken } = getAccessTokenData();
-    const data = { createTodoInput };
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
     };
     try {
-      const response = await axios.post(`${API_BASE_URL}/todos`, data, { headers });
+      const response = await axios.post(`${API_BASE_URL}/todos`, { todo: createTodoInput }, { headers });
       console.log(response);
       setTodoList([...todoList, response.data]);
       setCreateTodoInput("");
