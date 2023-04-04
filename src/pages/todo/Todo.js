@@ -11,6 +11,8 @@ const Todo = () => {
   const [isLoggedIn, setIsLoggedIn] = useState();
   const [createTodoInput, setCreateTodoInput] = useState("");
   const [todoList, setTodoList] = useState([]);
+  const [editTodoInput, setEditTodoInput] = useState("");
+  const [editTodoId, setEditTodoId] = useState(null);
 
   const handleCreateTodoInputChange = (event) => {
     setCreateTodoInput(event.target.value);
@@ -31,6 +33,16 @@ const Todo = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const editTodo = (event, data) => {
+    event.preventDefault();
+    setEditTodoInput(data.todo);
+    setEditTodoId(data.id);
+  };
+
+  const handleEditTodoInputChange = (event) => {
+    setEditTodoInput(event.target.value);
   };
 
   useEffect(() => {
@@ -73,11 +85,21 @@ const Todo = () => {
                   <label>
                     <input type="checkbox" />
                   </label>
-                  <div>
-                    <span>{data.todo}</span>
-                    <button data-testid="modify-button">수정</button>
-                    <button data-testid="delete-button">삭제</button>
-                  </div>
+                  {editTodoId && editTodoId === data.id ? (
+                    <div>
+                      <input data-testid="modify-input" type="text" value={editTodoInput} onChange={handleEditTodoInputChange} />
+                      <button data-testid="submit-button">제출</button>
+                      <button data-testid="cancel-button">취소</button>
+                    </div>
+                  ) : (
+                    <div>
+                      <span>{data.todo}</span>
+                      <button data-testid="modify-button" onClick={(event) => editTodo(event, data)}>
+                        수정
+                      </button>
+                      <button data-testid="delete-button">삭제</button>
+                    </div>
+                  )}
                 </li>
               );
             })}
