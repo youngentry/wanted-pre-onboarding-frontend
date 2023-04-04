@@ -45,6 +45,11 @@ const Todo = () => {
     setEditTodoInput(event.target.value);
   };
 
+  const cancleEditTodo = () => {
+    setEditTodoId("");
+    setEditTodoId(null);
+  };
+
   useEffect(() => {
     const isValidAccessToken = validateAccessToken();
     setIsLoggedIn(isValidAccessToken);
@@ -89,7 +94,9 @@ const Todo = () => {
                     <div>
                       <input data-testid="modify-input" type="text" value={editTodoInput} onChange={handleEditTodoInputChange} />
                       <button data-testid="submit-button">제출</button>
-                      <button data-testid="cancel-button">취소</button>
+                      <button data-testid="cancel-button" onClick={cancleEditTodo}>
+                        취소
+                      </button>
                     </div>
                   ) : (
                     <div>
