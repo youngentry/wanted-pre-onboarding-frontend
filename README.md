@@ -15,22 +15,25 @@ JWT 방식을 이용한 회원가입과 로그인
    `git clone https://github.com/youngentry/wanted-pre-onboarding-frontend`
 2. 패키지를 설치합니다.  
    `npm install`
-3. npm start로 react 앱을 실행합니다.
+3. npm start로 react 앱을 실행합니다.  
    `npm start`
 
-배포링크: `https://github.com/youngentry/wanted-pre-onboarding-frontend`
+배포링크  
+`https://github.com/youngentry/wanted-pre-onboarding-frontend`
 
-메인(/), 회원가입(/signup), 로그인(/signin), 투두(/todo) 페이지로 구성되어 있습니다.  
-로그인이 되어 있지 않은 상태에서는 메인(/), 회원가입(/signup), 로그인(/signin) 메뉴가 나타납니다.  
-회원가입을 한 뒤 로그인을 하면 메인(/), 투두(/todo), 로그아웃 메뉴가 나타납니다.  
-투두페이지에서는 투두리스트에 대한 추가, 수정, 삭제, 완료 체크가 가능합니다.
+#### 페이지 설명
+
+- 페이지 구성: 메인(/), 회원가입(/signup), 로그인(/signin), 투두(/todo)
+- 로그인이 되어 있지 않은 상태: 메인(/), 회원가입(/signup), 로그인(/signin) 메뉴가 나타납니다.
+- 회원가입을 한 뒤 로그인이 된 상태: 메인(/), 투두(/todo), 로그아웃 메뉴가 나타납니다.
+- 투두페이지: 투두리스트에 대한 추가, 수정, 삭제, 완료 체크가 가능합니다.
 
 ### 라이브러리
 
-"react": "^18.2.0",
-"react-router-dom": "^6.10.0",
-"axios": "^1.3.4",
-"sass": "^1.60.0",
+"react": "^18.2.0"  
+"react-router-dom": "^6.10.0"  
+"axios": "^1.3.4"  
+"sass": "^1.60.0"
 
 ### 구현기능
 
