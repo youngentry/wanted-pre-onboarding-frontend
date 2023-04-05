@@ -13,20 +13,23 @@ const Todo = () => {
   const [todoList, setTodoList] = useState([]);
   const [editTodoInput, setEditTodoInput] = useState("");
   const [editTodoId, setEditTodoId] = useState(null);
+  const [editTodoCheck, setEditTodoCheck] = useState(null);
+  const [editTodoCheckId, setEditTodoCheckId] = useState(null);
 
   const handleCreateTodoInputChange = (event) => {
     setCreateTodoInput(event.target.value);
   };
 
-  const submitTodo = async (event) => {
+  const createTodo = async (event) => {
     event.preventDefault();
     const { accessToken } = getAccessTokenData();
+    const body = { todo: createTodoInput };
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
     };
     try {
-      const response = await axios.post(`${API_BASE_URL}/todos`, { todo: createTodoInput }, { headers });
+      const response = await axios.post(`${API_BASE_URL}/todos`, body, { headers });
       console.log(response);
       setTodoList([...todoList, response.data]);
       setCreateTodoInput("");
@@ -35,7 +38,7 @@ const Todo = () => {
     }
   };
 
-  const editTodo = (event, data) => {
+  const openEditTodo = (event, data) => {
     event.preventDefault();
     setEditTodoInput(data.todo);
     setEditTodoId(data.id);
@@ -48,6 +51,56 @@ const Todo = () => {
   const cancelEditTodo = () => {
     setEditTodoId("");
     setEditTodoId(null);
+  };
+
+  const updateTodo = async (event, data) => {
+    event.preventDefault();
+    const { accessToken } = getAccessTokenData();
+    const body = { todo: editTodoInput, isCompleted: data.isCompleted };
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    };
+    try {
+      const response = await axios.put(`${API_BASE_URL}/todos/${data.id}`, body, { headers });
+      console.log(response);
+
+      const updatedTodoList = todoList.map((item) => {
+        if (item.id === data.id) {
+          return response.data;
+        }
+        return item;
+      });
+      setTodoList([...updatedTodoList]);
+      setEditTodoInput("");
+      setEditTodoId(null);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateCheck = async (event, data) => {
+    event.preventDefault();
+    const { accessToken } = getAccessTokenData();
+    const body = { todo: data.todo, isCompleted: !data.isCompleted };
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    };
+    try {
+      const response = await axios.put(`${API_BASE_URL}/todos/${data.id}`, body, { headers });
+      console.log(response);
+
+      const updatedTodoList = todoList.map((item) => {
+        if (item.id === data.id) {
+          return response.data;
+        }
+        return item;
+      });
+      setTodoList([...updatedTodoList]);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const deleteTodo = async (event, data) => {
@@ -77,13 +130,21 @@ const Todo = () => {
 
   useEffect(() => {
     (async () => {
-      const { accessToken } = getAccessTokenData();
-      const headers = {
-        Authorization: `Bearer ${accessToken}`,
-      };
-      const response = await axios.get(`${API_BASE_URL}/todos`, { headers });
-      console.log(response);
-      setTodoList([...response.data]);
+      try {
+        const accessTokenData = getAccessTokenData();
+        if (!accessTokenData) {
+          return;
+        }
+        const { accessToken } = accessTokenData;
+        const headers = {
+          Authorization: `Bearer ${accessToken}`,
+        };
+        const response = await axios.get(`${API_BASE_URL}/todos`, { headers });
+        console.log(response);
+        setTodoList([...response.data]);
+      } catch (error) {
+        console.error(error);
+      }
     })();
   }, []);
 
@@ -93,7 +154,7 @@ const Todo = () => {
         <div className="todo">
           <h2 className="title">투두페이지</h2>
           <div>
-            <form onSubmit={submitTodo}>
+            <form onSubmit={createTodo}>
               <input data-testid="new-todo-input" type="text" value={createTodoInput} onChange={handleCreateTodoInputChange} required />
               <button data-testid="new-todo-add-button" type="submit">
                 추가
@@ -105,20 +166,22 @@ const Todo = () => {
               return (
                 <li key={data.id}>
                   <label>
-                    <input type="checkbox" />
+                    <input type="checkbox" checked={data.isCompleted} onChange={(event) => updateCheck(event, data)} />
                   </label>
                   {editTodoId && editTodoId === data.id ? (
                     <div>
-                      <input data-testid="modify-input" type="text" value={editTodoInput} onChange={handleEditTodoInputChange} required />
-                      <button data-testid="submit-button">제출</button>
-                      <button data-testid="cancel-button" onClick={cancelEditTodo}>
-                        취소
-                      </button>
+                      <form onSubmit={(event) => updateTodo(event, data)}>
+                        <input data-testid="modify-input" type="text" value={editTodoInput} onChange={handleEditTodoInputChange} required />
+                        <button data-testid="submit-button">제출</button>
+                        <button data-testid="cancel-button" onClick={cancelEditTodo}>
+                          취소
+                        </button>
+                      </form>
                     </div>
                   ) : (
                     <div>
                       <span>{data.todo}</span>
-                      <button data-testid="modify-button" onClick={(event) => editTodo(event, data)}>
+                      <button data-testid="modify-button" onClick={(event) => openEditTodo(event, data)}>
                         수정
                       </button>
                       <button data-testid="delete-button" onClick={(event) => deleteTodo(event, data)}>
