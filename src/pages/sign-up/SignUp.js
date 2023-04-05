@@ -31,7 +31,7 @@ const SignUp = () => {
       try {
         await axios.post(`${API_BASE_URL}/auth/signup`, data, { headers });
         window.alert(`${email} 회원가입이 완료되었습니다.`);
-        navigate("/signin");
+        navigate("/signin", { state: { email: data.email } });
       } catch (error) {
         console.error(error);
         window.alert("회원가입에 실패했습니다.");

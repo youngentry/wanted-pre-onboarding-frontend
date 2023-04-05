@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./sign-in.scss";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { setAccessToken, validateAccessToken } from "../../module/handleAccessToken";
 import { API_BASE_URL } from "../../constants";
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
+
+  const writtenEmail = location.state?.email;
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -38,6 +41,12 @@ const SignIn = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (writtenEmail) {
+      setEmail(writtenEmail);
+    }
+  }, []);
 
   useEffect(() => {
     const isValidAccessToken = validateAccessToken();

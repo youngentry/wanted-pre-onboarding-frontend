@@ -30,7 +30,6 @@ const Todo = () => {
     };
     try {
       const response = await axios.post(`${API_BASE_URL}/todos`, body, { headers });
-      console.log(response);
       setTodoList([...todoList, response.data]);
       setCreateTodoInput("");
     } catch (error) {
@@ -63,7 +62,6 @@ const Todo = () => {
     };
     try {
       const response = await axios.put(`${API_BASE_URL}/todos/${data.id}`, body, { headers });
-      console.log(response);
 
       const updatedTodoList = todoList.map((item) => {
         if (item.id === data.id) {
@@ -89,7 +87,6 @@ const Todo = () => {
     };
     try {
       const response = await axios.put(`${API_BASE_URL}/todos/${data.id}`, body, { headers });
-      console.log(response);
 
       const updatedTodoList = todoList.map((item) => {
         if (item.id === data.id) {
@@ -112,7 +109,6 @@ const Todo = () => {
     };
     try {
       const response = await axios.delete(`${API_BASE_URL}/todos/${data.id}`, { headers });
-      console.log(response);
       const deletedTodoList = todoList.filter((item) => item.id !== data.id);
       setTodoList([...deletedTodoList]);
     } catch (error) {
@@ -140,7 +136,6 @@ const Todo = () => {
           Authorization: `Bearer ${accessToken}`,
         };
         const response = await axios.get(`${API_BASE_URL}/todos`, { headers });
-        console.log(response);
         setTodoList([...response.data]);
       } catch (error) {
         console.error(error);
