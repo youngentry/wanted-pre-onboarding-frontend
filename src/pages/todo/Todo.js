@@ -13,8 +13,6 @@ const Todo = () => {
   const [todoList, setTodoList] = useState([]);
   const [editTodoInput, setEditTodoInput] = useState("");
   const [editTodoId, setEditTodoId] = useState(null);
-  const [editTodoCheck, setEditTodoCheck] = useState(null);
-  const [editTodoCheckId, setEditTodoCheckId] = useState(null);
 
   const handleCreateTodoInputChange = (event) => {
     setCreateTodoInput(event.target.value);
