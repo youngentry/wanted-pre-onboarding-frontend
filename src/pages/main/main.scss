@@ -1,0 +1,10 @@
+@import "../../style/mixin/h2.scss";
+
+.main {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  h2 {
+    @include h2;
+  }
+}

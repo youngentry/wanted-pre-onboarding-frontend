@@ -146,7 +146,7 @@ const Todo = () => {
       {isLoggedIn && (
         <div className="todo">
           <h2 className="title">투두페이지</h2>
-          <div>
+          <div className="create-todo">
             <form onSubmit={createTodo}>
               <input data-testid="new-todo-input" type="text" value={createTodoInput} onChange={handleCreateTodoInputChange} required />
               <button data-testid="new-todo-add-button" type="submit">
@@ -157,27 +157,23 @@ const Todo = () => {
           <ul className="list">
             {todoList.map((data) => {
               return (
-                <li key={data.id}>
-                  <label>
-                    <input type="checkbox" checked={data.isCompleted} onChange={(event) => updateCheck(event, data)} />
-                  </label>
+                <li key={data.id} className="item">
+                  <input type="checkbox" checked={data.isCompleted} onChange={(event) => updateCheck(event, data)} />
                   {editTodoId && editTodoId === data.id ? (
-                    <div>
-                      <form onSubmit={(event) => updateTodo(event, data)}>
-                        <input data-testid="modify-input" type="text" value={editTodoInput} onChange={handleEditTodoInputChange} required />
-                        <button data-testid="submit-button">제출</button>
-                        <button data-testid="cancel-button" onClick={cancelEditTodo}>
-                          취소
-                        </button>
-                      </form>
-                    </div>
+                    <form onSubmit={(event) => updateTodo(event, data)}>
+                      <input className="modify-input" data-testid="modify-input" type="text" value={editTodoInput} onChange={handleEditTodoInputChange} required />
+                      <button data-testid="submit-button">제출</button>
+                      <button data-testid="cancel-button" onClick={cancelEditTodo}>
+                        취소
+                      </button>
+                    </form>
                   ) : (
                     <div>
                       <span>{data.todo}</span>
                       <button data-testid="modify-button" onClick={(event) => openEditTodo(event, data)}>
                         수정
                       </button>
-                      <button data-testid="delete-button" onClick={(event) => deleteTodo(event, data)}>
+                      <button className="delete" data-testid="delete-button" onClick={(event) => deleteTodo(event, data)}>
                         삭제
                       </button>
                     </div>

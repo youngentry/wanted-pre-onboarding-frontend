@@ -1,11 +1,25 @@
+@import "../../style/mixin/h2.scss";
+@import "../../style/mixin/button.scss";
+
 .sign-up {
   display: flex;
   flex-direction: column;
-  width: 500px;
-
+  padding: 20px;
+  h2 {
+    @include h2;
+  }
   .form {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    label {
+      margin-bottom: 5px;
+    }
+  }
+  button {
+    font-size: 20px;
+    padding: 5px 0;
+    width: 300px;
+    @include button;
   }
 }

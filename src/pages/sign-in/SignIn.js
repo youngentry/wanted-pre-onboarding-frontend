@@ -57,7 +57,7 @@ const SignIn = () => {
   }, [navigate]);
 
   return (
-    <div className="sign-up">
+    <div className="sign-in">
       <h2>로그인</h2>
       <form className="form" onSubmit={handleSubmit}>
         <label className="label">

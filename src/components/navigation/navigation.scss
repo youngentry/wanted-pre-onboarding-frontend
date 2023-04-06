@@ -1,0 +1,20 @@
+@import "../../style/mixin/button.scss";
+
+.navigation {
+  width: 100%;
+  .menu-list {
+    padding: 20px;
+    margin-bottom: 0;
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #369;
+
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px 10px;
+      @include button;
+    }
+  }
+}

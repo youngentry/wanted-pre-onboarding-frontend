@@ -1,5 +1,49 @@
+@import "../../style/mixin/button.scss";
+
 .todo {
-  .list li {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .title {
+    margin-bottom: 5px;
+  }
+
+  .create-todo {
+    margin-bottom: 10px;
+    width: 100%;
+    input {
+      padding: 3px;
+      margin-right: 5px;
+    }
+    button {
+      padding: 2px 5px 4px 5px;
+      @include button;
+    }
+  }
+
+  .list {
     display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+    .item {
+      display: flex;
+      form {
+        display: flex;
+      }
+      span {
+        margin-right: 5px;
+      }
+      input {
+        padding: 3px;
+        margin-right: 5px;
+      }
+      button {
+        margin-right: 5px;
+        padding: 2px 5px 4px 5px;
+        @include button;
+      }
+    }
   }
 }

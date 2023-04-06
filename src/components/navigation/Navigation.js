@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAccessTokenData, removeAccessTokenData } from "../../module/handleAccessToken";
+import "./navigation.scss";
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -23,28 +24,18 @@ const Navigation = () => {
   }, [navigate]);
 
   return (
-    <div>
-      <ul>
-        <li onClick={() => navigate("/")}>
-          <div>메인</div>
-        </li>
+    <div className="navigation">
+      <ul className="menu-list">
+        <li onClick={() => navigate("/")}>메인</li>
         {accessTokenData ? (
           <>
-            <li>
-              <div onClick={() => navigate("/todo")}>투두리스트</div>
-            </li>
-            <li>
-              <div onClick={handleClickLogout}>로그아웃</div>
-            </li>
+            <li onClick={() => navigate("/todo")}>투두리스트</li>
+            <li onClick={handleClickLogout}>로그아웃</li>
           </>
         ) : (
           <>
-            <li>
-              <div onClick={() => navigate("/signup")}>회원가입</div>
-            </li>
-            <li>
-              <div onClick={handleClickSignIn}>로그인</div>
-            </li>
+            <li onClick={() => navigate("/signup")}>회원가입</li>
+            <li onClick={handleClickSignIn}>로그인</li>
           </>
         )}
       </ul>
