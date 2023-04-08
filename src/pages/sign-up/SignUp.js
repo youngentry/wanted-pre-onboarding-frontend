@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./sign-up.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../constants";
+import { validateAccessToken } from "../../module/handleAccessToken";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -38,6 +39,13 @@ const SignUp = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const isValidAccessToken = validateAccessToken();
+    if (isValidAccessToken) {
+      navigate("/todo");
+    }
+  }, [navigate]);
 
   return (
     <div className="sign-up">
