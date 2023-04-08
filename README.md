@@ -25,7 +25,7 @@ Wanted에서 진행하는 프리온보딩 프론트엔드 인턴십 사전 과�
 
 ## 배포링크
 
-`https://github.com/youngentry/wanted-pre-onboarding-frontend/#/`
+`https://youngentry.github.io/wanted-pre-onboarding-frontend/#/`
 
 ## 라이브러리
 
