@@ -50,51 +50,40 @@ const Todo = () => {
     setEditTodoId(null);
   };
 
-  const updateTodo = async (event, data) => {
-    event.preventDefault();
+  const updateTodoApi = async (id, body) => {
     const { accessToken } = getAccessTokenData();
-    const body = { todo: editTodoInput, isCompleted: data.isCompleted };
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
     };
     try {
-      const response = await axios.put(`${API_BASE_URL}/todos/${data.id}`, body, { headers });
-
-      const updatedTodoList = todoList.map((item) => {
-        if (item.id === data.id) {
-          return response.data;
-        }
-        return item;
-      });
-      setTodoList([...updatedTodoList]);
-      setEditTodoInput("");
-      setEditTodoId(null);
+      const response = await axios.put(`${API_BASE_URL}/todos/${id}`, body, { headers });
+      return response.data;
     } catch (error) {
       console.error(error);
+      return null;
+    }
+  };
+
+  const updateTodo = async (event, data) => {
+    event.preventDefault();
+    const body = { todo: editTodoInput, isCompleted: data.isCompleted };
+    const updatedTodo = await updateTodoApi(data.id, body);
+    if (updatedTodo) {
+      const updatedTodoList = todoList.map((item) => (item.id === data.id ? updatedTodo : item));
+      setTodoList(updatedTodoList);
+      setEditTodoInput("");
+      setEditTodoId(null);
     }
   };
 
   const updateCheck = async (event, data) => {
     event.preventDefault();
-    const { accessToken } = getAccessTokenData();
     const body = { todo: data.todo, isCompleted: !data.isCompleted };
-    const headers = {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-    };
-    try {
-      const response = await axios.put(`${API_BASE_URL}/todos/${data.id}`, body, { headers });
-
-      const updatedTodoList = todoList.map((item) => {
-        if (item.id === data.id) {
-          return response.data;
-        }
-        return item;
-      });
-      setTodoList([...updatedTodoList]);
-    } catch (error) {
-      console.error(error);
+    const updatedTodo = await updateTodoApi(data.id, body);
+    if (updatedTodo) {
+      const updatedTodoList = todoList.map((item) => (item.id === data.id ? updatedTodo : item));
+      setTodoList(updatedTodoList);
     }
   };
 
