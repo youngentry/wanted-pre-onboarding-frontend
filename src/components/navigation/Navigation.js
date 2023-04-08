@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAccessTokenData, removeAccessTokenData } from "../../module/handleAccessToken";
-import "./navigation.scss";
+import "./Navigation.scss";
 
 const Navigation = () => {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAccessTokenData, validateAccessToken } from "../../module/handleAccessToken";
 import { useNavigate } from "react-router-dom";
-import "./todo.scss";
+import "./Todo.scss";
 import axios from "axios";
 import { API_BASE_URL } from "../../constants";
 

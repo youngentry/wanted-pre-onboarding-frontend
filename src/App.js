@@ -1,10 +1,11 @@
 import { Route, Routes } from "react-router-dom";
-import SignUp from "./pages/sign-up/SignUp";
-import SignIn from "./pages/sign-in/SignIn";
-import Navigation from "./components/navigation/Navigation";
-import Todo from "./pages/todo/Todo";
-import Main from "./pages/main/Main";
-import Wrapper from "./components/wrapper/Wrapper";
+import SignUp from "./pages/SignUp/SignUp";
+import SignIn from "./pages/SignIn/SignIn";
+import Todo from "./pages/Todo/Todo";
+import Main from "./pages/Main/Main";
+import Wrapper from "./components/Wrapper/Wrapper";
+import Navigation from "./components/Navigation/Navigation";
+import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/todo" element={<Todo />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </Wrapper>
     </div>

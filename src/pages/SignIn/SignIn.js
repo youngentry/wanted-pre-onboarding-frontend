@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import "./sign-up.scss";
+import "./SignIn.scss";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { setAccessToken, validateAccessToken } from "../../module/handleAccessToken";
 import { API_BASE_URL } from "../../constants";
-import { validateAccessToken } from "../../module/handleAccessToken";
 
-const SignUp = () => {
+const SignIn = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
+
+  const writtenEmail = location.state?.email;
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -25,20 +28,26 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const headers = { "Content-Type": "application/json" };
-    const data = { email, password };
-
     if (isValidEmail && isValidPassword) {
+      const headers = { "Content-Type": "application/json" };
+      const data = { email, password };
       try {
-        await axios.post(`${API_BASE_URL}/auth/signup`, data, { headers });
-        window.alert(`${email} 회원가입이 완료되었습니다.`);
-        navigate("/signin", { state: { email: data.email } });
+        const response = await axios.post(`${API_BASE_URL}/auth/signin`, data, { headers });
+        const accessToken = response.data.access_token;
+        setAccessToken(accessToken);
+        navigate("/todo");
       } catch (error) {
-        window.alert("이미 존재하는 아이디입니다.");
+        window.alert("아이디 또는 비밀번호가 틀렸습니다.");
         console.error(error);
       }
     }
   };
+
+  useEffect(() => {
+    if (writtenEmail) {
+      setEmail(writtenEmail);
+    }
+  }, []);
 
   useEffect(() => {
     const isValidAccessToken = validateAccessToken();
@@ -48,8 +57,8 @@ const SignUp = () => {
   }, [navigate]);
 
   return (
-    <div className="sign-up">
-      <h2>회원가입</h2>
+    <div className="sign-in">
+      <h2>로그인</h2>
       <form className="form" onSubmit={handleSubmit}>
         <label className="label">
           이메일
@@ -62,11 +71,11 @@ const SignUp = () => {
         </label>
         {!isValidPassword && <p>비밀번호는 8자리 이상이어야 합니다.</p>}
         <button className="submit-btn" data-testid="signup-button" type="submit" disabled={!isValidEmail || !isValidPassword}>
-          회원가입
+          로그인
         </button>
       </form>
     </div>
   );
 };
 
-export default SignUp;
+export default SignIn;
