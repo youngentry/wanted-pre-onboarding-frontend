@@ -16,7 +16,7 @@ Wanted에서 진행하는 프리온보딩 프론트엔드 인턴십 사전 과�
 
 1. 레포지토리를 클론합니다.  
    `git clone https://github.com/youngentry/wanted-pre-onboarding-frontend`
-2. 리액트 앱 폴더로 이동합니다.
+2. 리액트 앱 폴더로 이동합니다.  
    `cd wanted-pre-onboarding-frontend`
 3. 패키지를 설치합니다.  
    `npm install`
