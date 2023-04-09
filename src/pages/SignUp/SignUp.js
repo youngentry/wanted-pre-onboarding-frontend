@@ -26,13 +26,13 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const headers = { "Content-Type": "application/json" };
-    const data = { email, password };
+    const body = { email, password };
 
     if (isValidEmail && isValidPassword) {
       try {
-        await axios.post(`${API_BASE_URL}/auth/signup`, data, { headers });
+        await axios.post(`${API_BASE_URL}/auth/signup`, body, { headers });
         window.alert(`${email} 회원가입이 완료되었습니다.`);
-        navigate("/signin", { state: { email: data.email } });
+        navigate("/signin", { state: { email: body.email } });
       } catch (error) {
         window.alert("이미 존재하는 아이디입니다.");
         console.error(error);

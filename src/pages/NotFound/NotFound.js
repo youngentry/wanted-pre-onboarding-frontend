@@ -4,7 +4,7 @@ import "./NotFound.scss";
 const NotFound = () => {
   return (
     <div className="not-found">
-      <h2>페이지를 찾을 수 없습니다.</h2>
+      <h2>존재하지 않는 주소입니다.</h2>
     </div>
   );
 };

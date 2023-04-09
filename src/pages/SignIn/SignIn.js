@@ -30,9 +30,9 @@ const SignIn = () => {
     event.preventDefault();
     if (isValidEmail && isValidPassword) {
       const headers = { "Content-Type": "application/json" };
-      const data = { email, password };
+      const body = { email, password };
       try {
-        const response = await axios.post(`${API_BASE_URL}/auth/signin`, data, { headers });
+        const response = await axios.post(`${API_BASE_URL}/auth/signin`, body, { headers });
         const accessToken = response.data.access_token;
         setAccessToken(accessToken);
         navigate("/todo");
